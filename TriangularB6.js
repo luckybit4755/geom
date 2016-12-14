@@ -51,7 +51,7 @@ const TriangularB6 = function(canvas) {
     };
 
     self.clearPixels = function() {
-        self.context.fillStyle = 'white';
+        self.context.fillStyle = 'black';
         self.context.fillRect(0, 0, self.canvas.width, self.canvas.height);
         self.imageData = self.context.getImageData(0, 0, self.canvas.width, self.canvas.height);
     };
