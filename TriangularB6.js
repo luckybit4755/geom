@@ -101,7 +101,7 @@ const TriangularB6 = function(canvas) {
                    while ( s < 0 ) s += self.textureW;
                    while ( t < 0 ) t += self.textureH;
                    while ( s >= self.textureW ) s -= self.textureW;
-                   while ( t < self.textureH ) t -= self.textureH;
+                   while ( t >= self.textureH ) t -= self.textureH;
                    var tIndex = 4 * ( s + t * self.textureW );
                     r = self.texture[ tIndex++ ];
                     g = self.texture[ tIndex++ ];
