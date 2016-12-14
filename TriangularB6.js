@@ -73,6 +73,12 @@ const TriangularB6 = function(canvas) {
             self.left[i] = self.right[i] = false;
         }
     };
+    
+    self.setTexture = function( pixels, w, h ) {
+        self.texture = pixels;
+        self.textureW =  w;
+        self.textureH = h;
+    };
 
     self.zput = function(x, y, z, r, g, b) {
         if ( y < 0 ) y  = 0;
@@ -82,10 +88,25 @@ const TriangularB6 = function(canvas) {
         
         x = Math.floor(x);
         y = Math.floor(y);
+        
         if (z < self.zbuffer[y][x]) {
             self.zbuffer[y][x] = z;
             var index = 4 * (x + y * self.canvas.width);
             var zCue = 64 + 192 - 192 * z / self.canvas.width;
+            
+            /* texture hack for the win! */
+            if ( -1 == b && self.texture ) {
+                   var s = Math.floor( self.textureW * r / 255 );
+                   var t = Math.floor( self.textureH * g / 255 );
+                   while ( s < 0 ) s += self.textureW;
+                   while ( t < 0 ) t += self.textureH;
+                   while ( s >= self.textureW ) s -= self.textureW;
+                   while ( t < self.textureH ) t -= self.textureH;
+                   var tIndex = 4 * ( s + t * self.textureW );
+                    r = self.texture[ tIndex++ ];
+                    g = self.texture[ tIndex++ ];
+                    b = self.texture[ tIndex++ ];
+            }
 
             self.imageData.data[index++] = r;
             self.imageData.data[index++] = g;
