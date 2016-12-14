@@ -75,6 +75,11 @@ const TriangularB6 = function(canvas) {
     };
 
     self.zput = function(x, y, z, r, g, b) {
+        if ( y < 0 ) y  = 0;
+        if ( y >= self.canvas.height ) y = self.canvas.height - 1;
+        if ( x < 0 ) x  = 0;
+        if ( x >= self.canvas.width ) x = self.canvas.width - 1;
+        
         x = Math.floor(x);
         y = Math.floor(y);
         if (z < self.zbuffer[y][x]) {
